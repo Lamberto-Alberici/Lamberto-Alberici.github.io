@@ -145,34 +145,40 @@
             
             <!-- Project cards will go here -->
             <div class="project-card">
-                <h3>Project Title</h3>
+                <h3>Motherhood Wage Penalty Analysis</h3>
                 <div class="project-tags">
-                    <span class="project-tag">Python</span>
+                    <span class="project-tag">Stata</span>
                     <span class="project-tag">Regression Analysis</span>
+                    <span class="project-tag">Statistical Modeling</span>
                 </div>
-                
-                <div class="project-section">
+    
+                 <div class="project-section">
                     <h4>Overview</h4>
-                    <p>Project description goes here.</p>
+                    <p>Investigated whether mothers in the U.S. face a wage penalty using regression analysis on microdata from the 2024 IPUMS CPS ASEC survey. Analyzed the relationship between number of children and wages while controlling for education, experience, hours worked, marital status, race, ethnicity, and occupation. Applied survey weights to account for complex sampling methods and ensure statistical accuracy.</p>
                 </div>
-                
+    
                 <div class="project-section">
                     <h4>Approach</h4>
                     <ul>
-                        <li>Methodology point 1</li>
-                        <li>Methodology point 2</li>
+                        <li>Built multiple OLS regression models with log-transformed income as the dependent variable</li>
+                        <li>Controlled for key variables: education years, weekly hours, work experience, marital status, race/ethnicity, and occupation</li>
+                        <li>Applied ASEC survey weights to correct for sampling bias and improve model accuracy</li>
+                        <li>Calculated robust standard errors and 95% confidence intervals to assess statistical significance</li>
+                        <li>Analyzed wage effects across different income groups ($20K-$60K vs. >$60K) to examine how the penalty varies by earnings level</li>
                     </ul>
                 </div>
                 
                 <div class="project-section">
                     <h4>Key Findings</h4>
                     <ul>
-                        <li>Finding 1</li>
-                        <li>Finding 2</li>
+                        <li>Initial models suggested a negative correlation between number of children and wages, but the effect lost statistical significance when proper survey weights were applied</li>
+                        <li>The weighted model showed a 0.25% decrease in wages per child, but confidence intervals included zero, indicating no conclusive evidence of a motherhood wage penalty in 2024</li>
+                        <li>Lower-income mothers ($20K-$60K) experienced a 0.76% wage decrease per child, while higher-income mothers (>$60K) saw a 1.13% wage increase, suggesting the penalty disproportionately affects lower-wage workers</li>
+                        <li>Results contrast with previous studies from 2004-2013 that found significant penalties, potentially indicating improved workplace equity or methodological differences</li>
+                        <li><strong>Limitations:</strong> The analysis acknowledges potential omitted variable bias (e.g., motivation, career choices) and sampling selection bias. While this study found no statistically significant penalty, mothers may still face wage disadvantages that require different methodological approaches or state-level analysis to detect</li>
                     </ul>
                 </div>
             </div>
-        </div>
 
         <!-- Computer Science Column -->
         <div class="projects-column">
