@@ -24,10 +24,28 @@
             color: #555;
         }
 
-        .projects-section {
-            padding: 4rem 2rem;
-            max-width: 1000px;
+        .projects-container {
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .projects-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .column-header {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #1a1a1a;
+            text-align: center;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #667eea;
         }
 
         .project-card {
@@ -35,7 +53,7 @@
             border: 1px solid #e5e5e5;
             border-radius: 12px;
             padding: 2.5rem;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             transition: all 0.3s ease;
         }
 
@@ -93,6 +111,14 @@
             margin-bottom: 0.6rem;
             line-height: 1.7;
         }
+
+        /* Mobile responsive - stack columns on small screens */
+        @media (max-width: 968px) {
+            .projects-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -109,83 +135,83 @@
 
     <div class="projects-hero">
         <h1>Projects</h1>
-        <p>Data analytics and business strategy work</p>
+        <p>Data analytics and technical projects</p>
     </div>
 
-    <section class="projects-section">
-        
-        <!-- Project Template 1 -->
-        <div class="project-card">
-            <h3>Project Title</h3>
-            <div class="project-tags">
-                <span class="project-tag">Tableau</span>
-                <span class="project-tag">Python</span>
-                <span class="project-tag">Data Analysis</span>
-            </div>
+    <div class="projects-container">
+        <!-- Business Analytics Column -->
+        <div class="projects-column">
+            <h2 class="column-header">Business Analytics</h2>
             
-            <div class="project-section">
-                <h4>Overview</h4>
-                <p>Describe what the project was about and the business problem you were solving.</p>
-            </div>
-            
-            <div class="project-section">
-                <h4>Approach</h4>
-                <ul>
-                    <li>Your methodology and process</li>
-                    <li>Tools and techniques used</li>
-                    <li>How you analyzed the data</li>
-                </ul>
-            </div>
-            
-            <div class="project-section">
-                <h4>Key Findings</h4>
-                <ul>
-                    <li>Important insight or result</li>
-                    <li>Business impact or recommendation</li>
-                    <li>Technical achievement</li>
-                </ul>
+            <!-- Project cards will go here -->
+            <div class="project-card">
+                <h3>Project Title</h3>
+                <div class="project-tags">
+                    <span class="project-tag">Python</span>
+                    <span class="project-tag">Regression Analysis</span>
+                </div>
+                
+                <div class="project-section">
+                    <h4>Overview</h4>
+                    <p>Project description goes here.</p>
+                </div>
+                
+                <div class="project-section">
+                    <h4>Approach</h4>
+                    <ul>
+                        <li>Methodology point 1</li>
+                        <li>Methodology point 2</li>
+                    </ul>
+                </div>
+                
+                <div class="project-section">
+                    <h4>Key Findings</h4>
+                    <ul>
+                        <li>Finding 1</li>
+                        <li>Finding 2</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
-        <!-- Project Template 2 -->
-        <div class="project-card">
-            <h3>Another Project</h3>
-            <div class="project-tags">
-                <span class="project-tag">Machine Learning</span>
-                <span class="project-tag">Regression Analysis</span>
-                <span class="project-tag">Python</span>
-            </div>
+        <!-- Computer Science Column -->
+        <div class="projects-column">
+            <h2 class="column-header">Computer Science</h2>
             
-            <div class="project-section">
-                <h4>Overview</h4>
-                <p>Describe what the project was about and the business problem you were solving.</p>
-            </div>
-            
-            <div class="project-section">
-                <h4>Approach</h4>
-                <ul>
-                    <li>Your methodology and process</li>
-                    <li>Tools and techniques used</li>
-                    <li>How you analyzed the data</li>
-                </ul>
-            </div>
-            
-            <div class="project-section">
-                <h4>Key Findings</h4>
-                <ul>
-                    <li>Important insight or result</li>
-                    <li>Business impact or recommendation</li>
-                    <li>Technical achievement</li>
-                </ul>
+            <!-- Project cards will go here -->
+            <div class="project-card">
+                <h3>Project Title</h3>
+                <div class="project-tags">
+                    <span class="project-tag">Java</span>
+                    <span class="project-tag">Game Development</span>
+                </div>
+                
+                <div class="project-section">
+                    <h4>Overview</h4>
+                    <p>Project description goes here.</p>
+                </div>
+                
+                <div class="project-section">
+                    <h4>Approach</h4>
+                    <ul>
+                        <li>Methodology point 1</li>
+                        <li>Methodology point 2</li>
+                    </ul>
+                </div>
+                
+                <div class="project-section">
+                    <h4>Key Findings</h4>
+                    <ul>
+                        <li>Finding 1</li>
+                        <li>Finding 2</li>
+                    </ul>
+                </div>
             </div>
         </div>
-
-        <!-- Add more projects by copying the project-card div -->
-
-    </section>
+    </div>
 
     <footer>
-        <p>© 2024 Lamberto Alberici</p>
+        <p>© 2025 Lamberto Alberici</p>
     </footer>
 </body>
 </html>
