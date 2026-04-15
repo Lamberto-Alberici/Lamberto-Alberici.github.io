@@ -141,8 +141,67 @@
         <!-- Business Analytics Column -->
         <div class="projects-column">
             <h2 class="column-header">Business Analytics</h2>
-            
-            <!-- Project cards will go here -->
+
+            <!-- NCAA Final Four Analytics Challenge -->
+            <div class="project-card">
+                <h3>NCAA Men's Final Four Analytics Challenge — 3rd Place</h3>
+                <div class="project-tags">
+                    <span class="project-tag">Python</span>
+                    <span class="project-tag">Tableau</span>
+                    <span class="project-tag">XGBoost</span>
+                    <span class="project-tag">CatBoost</span>
+                    <span class="project-tag">SHAP</span>
+                    <span class="project-tag">Machine Learning</span>
+                    <span class="project-tag">Sports Analytics</span>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                    <a href="NCAA_Final_Four_Write-Up_DePauw_Loss_Minimizers.pdf" target="_blank" style="display: inline-block; padding: 0.5rem 1rem; background: transparent; color: #667eea; text-decoration: none; border: 2px solid #667eea; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">View Full Report</a>
+                    <a href="https://public.tableau.com/app/profile/lamberto.alberici/viz/Tableau_Packaged_Workbook_DePauw_Loss_Minimizers/Presentation?publish=yes" target="_blank" style="display: inline-block; padding: 0.5rem 1rem; background: transparent; color: #667eea; text-decoration: none; border: 2px solid #667eea; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">View Interactive Dashboards</a>
+                    <a href="https://analyticschallenge.butler.edu/mens-final-four-2026-analytics-challenge/" target="_blank" style="display: inline-block; padding: 0.5rem 1rem; background: transparent; color: #667eea; text-decoration: none; border: 2px solid #667eea; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">Official Competition Page</a>
+                </div>
+
+                <p style="font-style: italic; color: #666; margin-bottom: 1.5rem;">Collaborated with Owen Nguyen, Tran Le, Ahnaf Labib, and Dita Tran</p>
+
+                <div class="project-section">
+                    <h4>Overview</h4>
+                    <p>Advanced to the finals of the 2026 NCAA Men's Final Four Analytics Challenge, placing 3rd nationally out of hundreds of competing university teams. Built a two-stage predictive system to classify tournament selection and predict tournament seeding for all 350+ Division I programs, presenting findings to a panel of NCAA executives and business judges in Indianapolis on April 6th, 2026.</p>
+                </div>
+
+                <div class="project-section">
+                    <h4>Approach</h4>
+                    <ul>
+                        <li>Augmented the official NCAA dataset with 16 additional features from KenPom (advanced efficiency metrics) and ESPN (traditional box score statistics), engineering 100+ total features including quadrant records, efficiency margins, résumé scores, Pseudo-Elo ratings, and interaction terms</li>
+                        <li>Built a binary XGBoost classifier with class weighting to handle a highly imbalanced dataset (~18% positive rate), predicting tournament qualification; validated using GroupKFold cross-validation by season to prevent data leakage across years</li>
+                        <li>Developed a CatBoost regression model predicting overall tournament seed (1–68) among qualified teams, using SHAP analysis to identify the top 25 most predictive features</li>
+                        <li>Conducted correlation-based feature screening keeping features with absolute correlation above 0.30 with the target, then reduced to top 25 features via SHAP importance</li>
+                        <li>Built interactive Tableau dashboards for the final presentation, including a dynamic parameter-driven scatter plot and box plot that updated simultaneously across all features, and a dual-axis chart revealing a counterintuitive U-shaped relationship in non-conference scheduling</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h4>Key Results</h4>
+                    <ul>
+                        <li>Classification model achieved a test ROC-AUC of 98.01% with only a 1.90% overfitting gap and an F1 score of 83.6% — meaning if we randomly pick one tournament team and one non-tournament team, the model ranks the tournament team higher 98% of the time</li>
+                        <li>Seeding regression model achieved a mean RMSE of 5.33 seed positions under GroupKFold validation with a modest overfitting gap of 2.48</li>
+                        <li>SHAP analysis confirmed that NET-based metrics dominate predictions, validating that the NCAA's own evaluation tool is the strongest signal — the committee's process is internally consistent and learnable</li>
+                        <li>Q1 losses don't penalize tournament chances, but accumulating them by seeking elite competition actually earns better seeds — a counterintuitive, data-backed finding</li>
+                        <li>Non-conference scheduling follows a U-shaped pattern: elite teams with under 30% non-conference win rates make the tournament at the highest rate (44.9%) by voluntarily scheduling the toughest opponents in the country</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h4>Business Impact</h4>
+                    <ul>
+                        <li><strong>Coaches and Athletic Directors:</strong> Quantifies how individual scheduling decisions influence NET rank, SOS, and Quadrant 1 record — enabling programs to identify bubble risk 3–5 weeks before Selection Sunday while they still have agency to adjust</li>
+                        <li><strong>Conference Offices:</strong> Provides a unified forward-looking view of how every program's metrics evolve in real time, enabling coordinated scheduling strategies to maximize at-large bids and conference distributions</li>
+                        <li><strong>Media and Analysts:</strong> Generates consistent, auditable predictions that separate at-large selection from seeding, offering a defensible data-driven foundation that eliminates the inconsistencies of subjective bracketology</li>
+                        <li><strong>The NCAA:</strong> Demonstrates that while selection is officially subjective, it follows consistent learnable patterns — enabling the NCAA to use this system as a consistency audit to flag anomalous selections before finalization</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Motherhood Wage Penalty -->
             <div class="project-card">
                 <h3>Motherhood Wage Penalty Analysis</h3>
                 <div class="project-tags">
@@ -151,9 +210,9 @@
                     <span class="project-tag">Statistical Modeling</span>
                 </div>
     
-                <a href="Motherhood_Wage_Penalty_Paper.pdf" target="_blank" style="display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1rem; background: transparent; color: #667eea; text-decoration: none; border: 2px solid #667eea; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">📄 View Full Paper</a>
+                <a href="Motherhood_Wage_Penalty_Paper.pdf" target="_blank" style="display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1rem; background: transparent; color: #667eea; text-decoration: none; border: 2px solid #667eea; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">View Full Paper</a>
                 
-                 <div class="project-section">
+                <div class="project-section">
                     <h4>Overview</h4>
                     <p>Investigated whether mothers in the U.S. face a wage penalty using regression analysis on microdata from the 2024 IPUMS CPS ASEC survey. Analyzed the relationship between number of children and wages while controlling for education, experience, hours worked, marital status, race, ethnicity, and occupation. Applied survey weights to account for complex sampling methods and ensure statistical accuracy.</p>
                 </div>
@@ -181,8 +240,7 @@
                 </div>
             </div>
 
-
-
+            <!-- NFL Big Data Bowl -->
             <div class="project-card">
                 <h3>Route to Victory: NFL Passing Analytics Using Player-Tracking Data</h3>
                 <div class="project-tags">
@@ -192,7 +250,7 @@
                     <span class="project-tag">Regression Analysis</span>
                 </div>
                 
-                <a href="NFL Big Data Bowl.pdf" target="_blank" style="display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1rem; background: transparent; color: #667eea; text-decoration: none; border: 2px solid #667eea; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">📄 View Full Paper</a>
+                <a href="NFL Big Data Bowl.pdf" target="_blank" style="display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1rem; background: transparent; color: #667eea; text-decoration: none; border: 2px solid #667eea; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">View Full Paper</a>
                 
                 <p style="font-style: italic; color: #666; margin-bottom: 1.5rem;">Collaborated with Connor Agler and Maksymilian Hildt</p>
                 
@@ -223,7 +281,7 @@
                 </div>
             </div>
 
-
+            <!-- European Football -->
             <div class="project-card">
                 <h3>European Football Performance Analysis: Statistical Predictors of Success</h3>
                 <div class="project-tags">
@@ -233,7 +291,7 @@
                     <span class="project-tag">Sports Analytics</span>
                 </div>
                 
-                <a href="https://public.tableau.com/app/profile/lamberto.alberici/viz/EuropeanFootballStatisticalAnalysis/Story1?publish=yes" target="_blank" style="display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1rem; background: transparent; color: #667eea; text-decoration: none; border: 2px solid #667eea; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">📊 View Interactive Dashboards</a>
+                <a href="https://public.tableau.com/app/profile/lamberto.alberici/viz/EuropeanFootballStatisticalAnalysis/Story1?publish=yes" target="_blank" style="display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1rem; background: transparent; color: #667eea; text-decoration: none; border: 2px solid #667eea; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">View Interactive Dashboards</a>
                 
                 <div class="project-section">
                     <h4>Overview</h4>
@@ -262,15 +320,7 @@
                 </div>
             </div>
 
-
-
-
-
-
-
-
-
-
+            <!-- U.S. Senate Elections -->
             <div class="project-card">
                 <h3>U.S. Senate Elections Analysis Dashboard</h3>
                 <div class="project-tags">
@@ -279,7 +329,7 @@
                     <span class="project-tag">Political Data Analysis</span>
                 </div>
                 
-                <a href="https://public.tableau.com/app/profile/lamberto.alberici/viz/USSenateElectionsAnalysis/FinalStory" target="_blank" style="display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1rem; background: transparent; color: #667eea; text-decoration: none; border: 2px solid #667eea; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">📊 View Interactive Dashboard</a>
+                <a href="https://public.tableau.com/app/profile/lamberto.alberici/viz/USSenateElectionsAnalysis/FinalStory" target="_blank" style="display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1rem; background: transparent; color: #667eea; text-decoration: none; border: 2px solid #667eea; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">View Interactive Dashboard</a>
                 
                 <div class="project-section">
                     <h4>Overview</h4>
@@ -306,18 +356,12 @@
                     </ul>
                 </div>
             </div>
-
-
-
-
-
         </div>
 
         <!-- Computer Science Column -->
         <div class="projects-column">
             <h2 class="column-header">Computer Science</h2>
             
-            <!-- Project cards will go here -->
             <div class="project-card">
                 <h3>Inventory Management Database System</h3>
                 <div class="project-tags">
@@ -369,7 +413,7 @@
                     <span class="project-tag">State Management</span>
                 </div>
                 
-                <a href="https://github.com/Lamberto-Alberici/prison-escape-game" target="_blank" style="display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1rem; background: transparent; color: #667eea; text-decoration: none; border: 2px solid #667eea; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">💻 View Code on GitHub</a>
+                <a href="https://github.com/Lamberto-Alberici/prison-escape-game" target="_blank" style="display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1rem; background: transparent; color: #667eea; text-decoration: none; border: 2px solid #667eea; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">View Code on GitHub</a>
                 
                 <div class="project-section">
                     <h4>Overview</h4>
@@ -398,8 +442,6 @@
                     </ul>
                 </div>
             </div>
-
-
 
             <div class="project-card">
                 <h3>Interactive Dodging Game</h3>
