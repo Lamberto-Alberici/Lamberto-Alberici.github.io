@@ -8,7 +8,6 @@
 </head>
 <body>
 
-  <!-- ─── Navigation ─────────────────────────────── -->
   <nav>
     <div class="nav-content">
       <a href="index.html" class="logo">LA</a>
@@ -20,354 +19,297 @@
     </div>
   </nav>
 
-  <!-- ─── Projects Hero ──────────────────────────── -->
+  <!-- ─── Hero ─────────────────────────────────────── -->
   <div class="projects-hero">
     <div class="projects-hero-inner">
       <p class="section-label">Work</p>
-      <h1 class="projects-hero-title" style="font-family:'Syne',sans-serif;font-size:clamp(3rem,7vw,5.5rem);font-weight:800;letter-spacing:-3px;line-height:1;margin-bottom:1rem;">Projects</h1>
-      <p style="color:var(--text-secondary);font-size:1rem;font-weight:300;max-width:480px;">
-        Click any card to explore the full methodology, findings, and results.
-      </p>
+      <h1 class="projects-hero h1">Projects</h1>
+      <p>Click any card to explore the full methodology, findings, and results.</p>
     </div>
   </div>
 
-  <!-- ─── Projects Grid ──────────────────────────── -->
-  <div class="projects-layout" id="projectsGrid">
-    <div class="projects-column" id="baColumn">
-      <h2 class="column-header">Business Analytics</h2>
-      <!-- Cards injected by JS -->
-    </div>
-    <div class="projects-column" id="csColumn">
-      <h2 class="column-header">Computer Science</h2>
-      <!-- Cards injected by JS -->
-    </div>
+  <!-- ─── Projects ─────────────────────────────────── -->
+  <div class="projects-content">
+    <!-- Featured card injected here -->
+    <div id="featuredSlot"></div>
+    <!-- Regular grid injected here -->
+    <div class="projects-grid" id="projectsGrid"></div>
   </div>
 
-  <!-- ─── Modal ──────────────────────────────────── -->
+  <!-- ─── Modal ────────────────────────────────────── -->
   <div class="modal-backdrop" id="modalBackdrop">
     <div class="modal" id="modal" role="dialog" aria-modal="true">
       <div class="modal-close">
         <button id="modalCloseBtn" aria-label="Close">✕</button>
       </div>
-      <div class="modal-body" id="modalBody">
-        <!-- Content injected by JS -->
-      </div>
+      <div class="modal-body" id="modalBody"></div>
     </div>
   </div>
 
-  <!-- ─── Footer ─────────────────────────────────── -->
   <footer>
     <div class="footer-inner">
       <p>© 2026 Lamberto Alberici</p>
-      <p>Built from scratch · Hosted on GitHub Pages</p>
+      <p>Built from scratch · GitHub Pages</p>
     </div>
   </footer>
 
 <script>
 // ─── Project Data ───────────────────────────────────────────────────────────
-const projects = {
-  businessAnalytics: [
-    {
-      id: 'ncaa',
-      title: 'NCAA Men\'s Final Four Analytics Challenge',
-      badge: '3rd Place · 198 Teams · 15 Universities',
-      tags: ['Python', 'XGBoost', 'CatBoost', 'SHAP', 'Tableau', 'Machine Learning', 'Sports Analytics'],
-      links: [
-        { label: 'View Full Report', url: 'NCAA_Final_Four_Write-Up_DePauw_Loss_Minimizers.pdf' },
-        { label: 'Interactive Dashboards', url: 'https://public.tableau.com/app/profile/lamberto.alberici/viz/Tableau_Packaged_Workbook_DePauw_Loss_Minimizers/Presentation?publish=yes' },
-        { label: 'Official Competition Page', url: 'https://analyticschallenge.butler.edu/mens-final-four-2026-analytics-challenge/' }
-      ],
-      collaborators: 'Owen Nguyen, Tran Le, Ahnaf Labib, Dita Tran',
-      overview: 'Advanced to the finals of the 2026 NCAA Men\'s Final Four Analytics Challenge, placing 3rd nationally out of 198 competing university teams across 15 universities. Built a two-stage predictive system to classify tournament selection and predict tournament seeding for all 350+ Division I programs, presenting findings to a panel of NCAA executives and business judges in Indianapolis on April 6th, 2026.',
-      approach: [
-        'Augmented the official NCAA dataset with 16 additional features from KenPom (advanced efficiency metrics) and ESPN (traditional box score statistics), engineering 100+ total features including quadrant records, efficiency margins, résumé scores, Pseudo-Elo ratings, and interaction terms',
-        'Built a binary XGBoost classifier with class weighting to handle a highly imbalanced dataset (~18% positive rate), predicting tournament qualification; validated using GroupKFold cross-validation by season to prevent data leakage across years',
-        'Developed a CatBoost regression model predicting overall tournament seed (1–68) among qualified teams, using SHAP analysis to identify the top 25 most predictive features',
-        'Built interactive Tableau dashboards including a dynamic parameter-driven scatter/box plot pair and a dual-axis chart revealing a counterintuitive U-shaped relationship in non-conference scheduling'
-      ],
-      results: [
-        'XGBoost classifier achieved a test ROC-AUC of 98.01% with only a 1.90% overfitting gap and F1 score of 83.6% — if we randomly pick one tournament and one non-tournament team, the model ranks the tournament team higher 98% of the time',
-        'CatBoost seeding model achieved a mean RMSE of 5.33 seed positions under GroupKFold validation with a modest overfitting gap of 2.48',
-        'SHAP analysis confirmed NET-based metrics dominate predictions, validating that the committee\'s process is internally consistent and learnable',
-        'Non-conference scheduling follows a U-shaped pattern: teams with under 30% non-conference win rates make the tournament at the highest rate (44.9%) by voluntarily scheduling the toughest opponents in the country'
-      ],
-      impact: [
-        'Coaches and Athletic Directors: Quantifies how individual scheduling decisions influence NET rank, SOS, and Quadrant 1 record — identifying bubble risk 3–5 weeks before Selection Sunday',
-        'Conference Offices: Provides a unified forward-looking view of program metrics to coordinate scheduling strategies and maximize at-large bids',
-        'Media and Analysts: Generates consistent, auditable predictions separating at-large selection from seeding — a defensible alternative to subjective bracketology',
-        'The NCAA: Demonstrates that while selection is officially subjective, it follows consistent learnable patterns — enabling consistency audits before finalization'
-      ]
-    },
-    {
-      id: 'motherhood',
-      title: 'Motherhood Wage Penalty Analysis',
-      tags: ['Stata', 'OLS Regression', 'Econometrics', 'Statistical Modeling'],
-      links: [
-        { label: 'View Full Paper', url: 'Motherhood_Wage_Penalty_Paper.pdf' }
-      ],
-      overview: 'Investigated whether mothers in the U.S. face a wage penalty using regression analysis on microdata from the 2024 IPUMS CPS ASEC survey. Analyzed the relationship between number of children and wages while controlling for education, experience, hours worked, marital status, race, ethnicity, and occupation. Applied survey weights to account for complex sampling methods and ensure statistical accuracy.',
-      approach: [
-        'Built multiple OLS regression models with log-transformed income as the dependent variable',
-        'Controlled for key variables: education years, weekly hours, work experience, marital status, race/ethnicity, and occupation',
-        'Applied ASEC survey weights to correct for sampling bias and improve model accuracy',
-        'Calculated robust standard errors and 95% confidence intervals to assess statistical significance',
-        'Analyzed wage effects across different income groups ($20K–$60K vs. >$60K) to examine how the penalty varies by earnings level'
-      ],
-      results: [
-        'Initial models suggested a negative correlation between number of children and wages, but the effect lost statistical significance when proper survey weights were applied',
-        'Weighted model showed a 0.25% decrease in wages per child, but confidence intervals included zero — no conclusive evidence of a motherhood wage penalty in 2024',
-        'Lower-income mothers ($20K–$60K) experienced a 0.76% wage decrease per child, while higher-income mothers (>$60K) saw a 1.13% wage increase, suggesting the penalty disproportionately affects lower-wage workers',
-        'Results contrast with studies from 2004–2013 that found significant penalties, potentially indicating improved workplace equity or methodological differences'
-      ]
-    },
-    {
-      id: 'nfl',
-      title: 'Route to Victory: NFL Passing Analytics',
-      tags: ['Python', 'Tableau', 'Regression Analysis', 'Machine Learning', 'Sports Analytics'],
-      links: [
-        { label: 'View Full Paper', url: 'NFL Big Data Bowl.pdf' }
-      ],
-      collaborators: 'Connor Agler, Maksymilian Hildt',
-      overview: 'Comprehensive analysis of offensive passing performance in the 2023 NFL season using player-tracking data from the 2026 NFL Big Data Bowl. Conducted three interconnected analyses — pre-snap prediction, route effectiveness, and ball-tracking efficiency — across 396,796 targeted receiver observations.',
-      approach: [
-        'Pre-snap Analysis: Built OLS regression model predicting yards gained using formation, alignment, coverage indicators, and situational variables',
-        'Route Effectiveness: Developed six models (4 OLS, 2 logistic) analyzing 12 route types using yards gained and pass completion as dependent variables',
-        'Ball Tracking Efficiency (BTE): Created custom metric (BTE = Ideal Distance / Actual Distance) to measure route geometry; applied OLS, Ridge, and Lasso models to identify predictors',
-        'Built interactive Tableau dashboard allowing filtering by route, coverage type, down, territory, quarter, and pass result'
-      ],
-      results: [
-        'Pre-snap model achieved R² of 0.531, with pass completion status as the strongest predictor; play action increased expected yards by ~1 yard',
-        'Post, Corner, Go, and Wheel routes maximized yards gained (6–8 yards above baseline); Flat, Hitch, Out, and Cross routes achieved highest completion rates',
-        'Cross route emerged as the most balanced option overall — top 5 in both yards gained and completion probability',
-        'Receivers run paths 23% longer than direct distance on average (BTE = 0.81), reflecting strategic route complexity rather than inefficiency'
-      ]
-    },
-    {
-      id: 'football',
-      title: 'European Football Performance Analysis',
-      tags: ['Tableau', 'Data Visualization', 'Regression Analysis', 'Sports Analytics'],
-      links: [
-        { label: 'View Interactive Dashboards', url: 'https://public.tableau.com/app/profile/lamberto.alberici/viz/EuropeanFootballStatisticalAnalysis/Story1?publish=yes' }
-      ],
-      overview: 'Multi-level statistical analysis of European football examining 12,178 players and 34,540 games across 13 years (2012–2025). Combined OLS and logistic regression with interactive Tableau dashboards to identify key predictors of individual goal-scoring, financial success, and match outcomes across Europe\'s top 5 leagues.',
-      approach: [
-        'Aggregated and cleaned 13 years of performance and financial data from Transfermarkt across 5 European leagues (Premier League, La Liga, Serie A, Bundesliga, Ligue 1)',
-        'Built OLS regression model analyzing 6,420 players to identify statistical predictors of goal-scoring ability (R²=0.532)',
-        'Developed logistic regression model on 34,540 games predicting match outcomes from team characteristics (Pseudo R²=0.574)',
-        'Analyzed financial data for Europe\'s 20 richest clubs examining revenue sources and wage sustainability against UEFA guidelines',
-        'Created 5 interactive Tableau dashboards with dynamic filtering across players, teams, leagues, and seasons'
-      ],
-      results: [
-        'Assists per game is the strongest predictor of individual goal-scoring (β=0.319***), with 160x more impact than height',
-        'Financial advantage exists but varies — wage efficiency ranges from 55% (sustainable) to 110% (crisis) of revenue across top clubs',
-        'Goals scored dominates match outcomes (932% increase in win odds per goal)',
-        'Home advantage doubles win probability (+109%), while opponent position creates 3x variation in difficulty'
-      ]
-    },
-    {
-      id: 'senate',
-      title: 'U.S. Senate Elections Analysis Dashboard',
-      tags: ['Tableau', 'Data Visualization', 'Political Data Analysis'],
-      links: [
-        { label: 'View Interactive Dashboard', url: 'https://public.tableau.com/app/profile/lamberto.alberici/viz/USSenateElectionsAnalysis/FinalStory' }
-      ],
-      overview: 'Developed interactive Tableau dashboards analyzing U.S. Senate election data and demographic patterns across multiple election cycles. Combined precinct-level voting data with county demographics to identify voting trends and patterns across different regions and time periods.',
-      approach: [
-        'Integrated Senate precinct data with demographic information at the county level',
-        'Created interactive dashboards displaying multiple years of election results with dynamic filtering',
-        'Analyzed voting patterns across different demographic groups and geographic regions',
-        'Designed visualizations to compare election outcomes across time periods and states'
-      ],
-      results: [
-        'Interactive county-level visualizations revealing voting patterns and demographic correlations',
-        'Multi-year election trend analysis enabling comparison across different regions and cycles',
-        'Dashboard design enabling users to explore relationships between demographics and voting behavior',
-        'Clean, professional presentation suitable for political analysis and public understanding'
-      ]
-    }
-  ],
-  computerScience: [
-    {
-      id: 'database',
-      title: 'Inventory Management Database System',
-      tags: ['PostgreSQL', 'SQL', 'Database Design', 'Schema Normalization'],
-      links: [
-        { label: 'View Code on GitHub', url: 'https://github.com/lamberto-alberici/inventory-management-database' }
-      ],
-      collaborators: '3 peers',
-      overview: 'Designed and implemented a comprehensive PostgreSQL database for retail inventory management operations. The system features normalized schema design, custom stored procedures, user-defined functions, and complex views to support customer management, product cataloging, order processing, and a tiered loyalty rewards program.',
-      approach: [
-        'Designed relational database schema normalized to Third Normal Form (3NF) to eliminate data redundancy',
-        'Created 8 interconnected tables with proper foreign key relationships and referential integrity constraints',
-        'Implemented 6+ custom SQL functions including customer reward tier calculation, order weight computation, and product categorization',
-        'Developed views for efficient querying of customer activity, high-value orders, and rewards status',
-        'Applied indexing strategies and transaction management for optimal performance and data consistency'
-      ],
-      results: [
-        'Automated tiered rewards system (Bronze/Silver/Gold/Platinum) based on customer point accumulation',
-        'Order processing pipeline with dynamic weight calculation and multi-table product relationship tracking',
-        'Returns management system fully integrated with customer accounts and inventory records',
-        'Complex views enabling efficient reporting on customer activity and high-value transactions',
-        'Robust data validation through CHECK constraints, NOT NULL requirements, and UNIQUE constraints'
-      ]
-    },
-    {
-      id: 'prison',
-      title: 'Prison Escape Game',
-      tags: ['Rust', 'Raylib', 'Game Development', 'State Management'],
-      links: [
-        { label: 'View Code on GitHub', url: 'https://github.com/Lamberto-Alberici/prison-escape-game' }
-      ],
-      overview: 'Developed an interactive prison escape game in Rust using the Raylib graphics library. Players navigate two prison rooms, collect items, trade with NPCs, and strategically plan their escape. Features a complete scene management system, inventory mechanics, and collision detection.',
-      approach: [
-        'Implemented modular scene management system with state transitions between menu, game rooms, and win screens',
-        'Built inventory system with pick-up, drop, and use mechanics for item interaction',
-        'Designed NPC trading system where players exchange items to progress toward escape',
-        'Created collision detection for interactive objects and player movement boundaries',
-        'Developed UI sidebar displaying real-time inventory, controls, and action feedback'
-      ],
-      results: [
-        'Scene stack architecture enabling smooth transitions between main menu, instructions, credits, gameplay, and win screen',
-        'Seven collectible items with unique trading mechanics required to unlock escape route',
-        'WASD/arrow key movement controls with real-time player position updates',
-        'Strategic puzzle design requiring item collection and NPC interaction to progress'
-      ]
-    },
-    {
-      id: 'dodging',
-      title: 'Interactive Dodging Game',
-      tags: ['Java', 'OOP', 'Game Development', 'Event Handling'],
-      links: [
-        { label: 'View Code on GitHub', url: 'https://github.com/Lamberto-Alberici/arcane-dodging-game' }
-      ],
-      overview: 'Developed an interactive minigame where players control an avatar by dragging with the mouse to dodge incoming bombs. Features character sprites from the TV show Arcane. Built demonstrating core Java programming concepts including event handling, collision detection, and real-time user input processing.',
-      approach: [
-        'Implemented object-oriented design with separate classes for game entities (player avatar, bombs, game state)',
-        'Used Java event listeners to capture mouse movements and update player position in real-time',
-        'Developed collision detection algorithms to determine when bombs hit the player',
-        'Created a scoring system and difficulty progression as gameplay continues',
-        'Designed the UI with Java graphics libraries for clean, functional presentation'
-      ],
-      results: [
-        'Smooth, responsive mouse-drag controls for intuitive gameplay',
-        'Dynamic bomb spawning with increasing difficulty over time',
-        'Real-time collision detection and game state management',
-        'Clean UI showing score and game status throughout play'
-      ]
-    }
-  ]
-};
+const projects = [
+  {
+    id: 'ncaa',
+    featured: true,
+    title: 'NCAA Men\'s Final Four Analytics Challenge',
+    badge: '3rd Place · 198 Teams · 15 Universities',
+    desc: 'Two-stage predictive system (XGBoost + CatBoost) replicating NCAA tournament selection and seeding — 98.01% ROC-AUC, presented in Indianapolis to NCAA executives.',
+    tags: ['Python', 'XGBoost', 'CatBoost', 'SHAP', 'Tableau', 'Machine Learning', 'Sports Analytics'],
+    links: [
+      { label: 'Full Report', url: 'NCAA_Final_Four_Write-Up_DePauw_Loss_Minimizers.pdf' },
+      { label: 'Interactive Dashboards', url: 'https://public.tableau.com/app/profile/lamberto.alberici/viz/Tableau_Packaged_Workbook_DePauw_Loss_Minimizers/Presentation?publish=yes' },
+      { label: 'Competition Page', url: 'https://analyticschallenge.butler.edu/mens-final-four-2026-analytics-challenge/' }
+    ],
+    collaborators: 'Owen Nguyen, Tran Le, Ahnaf Labib, Dita Tran',
+    overview: 'Advanced to the finals of the 2026 NCAA Men\'s Final Four Analytics Challenge, placing 3rd nationally out of 198 competing teams across 15 universities. Built a two-stage predictive system to classify tournament selection and predict seeding for all 350+ Division I programs, presenting findings to a panel of NCAA executives and business judges in Indianapolis on April 6th, 2026.',
+    approach: [
+      'Augmented the official NCAA dataset with 16 additional features from KenPom and ESPN, engineering 100+ total features including quadrant records, efficiency margins, résumé scores, Pseudo-Elo ratings, and interaction terms',
+      'Built a binary XGBoost classifier with class weighting to handle a highly imbalanced dataset (~18% positive rate), validated using GroupKFold cross-validation by season to prevent data leakage',
+      'Developed a CatBoost regression model predicting overall tournament seed (1–68), using SHAP analysis to identify the top 25 most predictive features',
+      'Built interactive Tableau dashboards including a dynamic parameter-driven scatter/box plot pair and a dual-axis chart revealing a counterintuitive U-shaped pattern in non-conference scheduling'
+    ],
+    results: [
+      'XGBoost classifier: 98.01% test ROC-AUC, 1.90% overfitting gap, 83.6% F1 score — the model ranks a tournament team above a non-tournament team 98% of the time',
+      'CatBoost seeding model: mean RMSE of 5.33 seed positions under GroupKFold validation, overfitting gap of 2.48',
+      'SHAP analysis confirmed NET-based metrics dominate predictions — the committee\'s process is internally consistent and learnable',
+      'Non-conference scheduling follows a U-shaped pattern: teams with under 30% non-conference win rates make the tournament at the highest rate (44.9%) by voluntarily scheduling the toughest opponents'
+    ],
+    impact: [
+      'Coaches and Athletic Directors: Quantifies how scheduling decisions influence NET rank, SOS, and Quadrant 1 record — identifying bubble risk 3–5 weeks before Selection Sunday',
+      'Conference Offices: Unified forward-looking view of program metrics to coordinate scheduling strategies and maximize at-large bids',
+      'Media and Analysts: Consistent, auditable predictions separating at-large selection from seeding — a defensible alternative to subjective bracketology',
+      'The NCAA: Demonstrates that selection follows consistent learnable patterns — enabling consistency audits before finalization'
+    ]
+  },
+  {
+    id: 'motherhood',
+    title: 'Motherhood Wage Penalty Analysis',
+    tags: ['Stata', 'OLS Regression', 'Econometrics', 'Statistical Modeling'],
+    links: [{ label: 'Full Paper', url: 'Motherhood_Wage_Penalty_Paper.pdf' }],
+    overview: 'Investigated whether U.S. mothers face a wage penalty using regression analysis on 21,000+ observations from the 2024 IPUMS CPS ASEC survey, controlling for education, experience, hours worked, marital status, race, and occupation.',
+    approach: [
+      'Built multiple OLS regression models with log-transformed income as the dependent variable',
+      'Controlled for education years, weekly hours, work experience, marital status, race/ethnicity, and occupation',
+      'Applied ASEC survey weights (ASECWT) to correct for sampling bias and improve model accuracy',
+      'Calculated robust standard errors and 95% confidence intervals to assess statistical significance',
+      'Analyzed wage effects across income groups ($20K–$60K vs. >$60K)'
+    ],
+    results: [
+      'Weighted model showed a 0.25% decrease in wages per child, but confidence intervals included zero — no conclusive evidence of a motherhood wage penalty in 2024',
+      'Lower-income mothers ($20K–$60K): 0.76% wage decrease per child; higher-income mothers (>$60K): 1.13% wage increase — penalty disproportionately affects lower-wage workers',
+      'Results contrast with studies from 2004–2013, potentially indicating improved workplace equity or methodological differences'
+    ]
+  },
+  {
+    id: 'nfl',
+    title: 'Route to Victory: NFL Passing Analytics',
+    tags: ['Python', 'Tableau', 'Regression Analysis', 'Machine Learning', 'Sports Analytics'],
+    links: [{ label: 'Full Paper', url: 'NFL Big Data Bowl.pdf' }],
+    collaborators: 'Connor Agler, Maksymilian Hildt',
+    overview: 'Comprehensive analysis of offensive passing performance in the 2023 NFL season using player-tracking data from the 2026 NFL Big Data Bowl across 396,796 targeted receiver observations.',
+    approach: [
+      'Pre-snap Analysis: OLS regression predicting yards gained using formation, alignment, coverage, and situational variables',
+      'Route Effectiveness: Six models (4 OLS, 2 logistic) analyzing 12 route types',
+      'Ball Tracking Efficiency (BTE): Custom metric (BTE = Ideal Distance / Actual Distance) with OLS, Ridge, and Lasso models',
+      'Interactive Tableau dashboard with filtering by route, coverage type, down, territory, quarter, and pass result'
+    ],
+    results: [
+      'Pre-snap model: R² of 0.531; play action increased expected yards by ~1 yard',
+      'Post, Corner, Go, and Wheel routes maximized yards (6–8 yards above baseline); Cross route ranked top 5 in both yards and completion probability',
+      'Receivers run paths 23% longer than direct distance on average (BTE = 0.81) — reflecting strategic route complexity, not inefficiency'
+    ]
+  },
+  {
+    id: 'football',
+    title: 'European Football Performance Analysis',
+    tags: ['Tableau', 'Regression Analysis', 'Data Visualization', 'Sports Analytics'],
+    links: [{ label: 'Interactive Dashboards', url: 'https://public.tableau.com/app/profile/lamberto.alberici/viz/EuropeanFootballStatisticalAnalysis/Story1?publish=yes' }],
+    overview: 'Multi-level statistical analysis of 12,178 players and 34,540 games across 13 years (2012–2025) using OLS and logistic regression with 5 interactive Tableau dashboards.',
+    approach: [
+      'Aggregated 13 years of Transfermarkt data across 5 European leagues (Premier League, La Liga, Serie A, Bundesliga, Ligue 1)',
+      'OLS regression on 6,420 players to identify goal-scoring predictors (R²=0.532)',
+      'Logistic regression on 34,540 games predicting match outcomes (Pseudo R²=0.574)',
+      'Analyzed financial data for Europe\'s 20 richest clubs against UEFA sustainability guidelines'
+    ],
+    results: [
+      'Assists per game is the strongest goal-scoring predictor (β=0.319***) — 160x more impact than height',
+      'Goals scored dominates match outcomes: 932% increase in win odds per goal',
+      'Home advantage doubles win probability (+109%); opponent position creates 3x difficulty variation'
+    ]
+  },
+  {
+    id: 'senate',
+    title: 'U.S. Senate Elections Dashboard',
+    tags: ['Tableau', 'Data Visualization', 'Political Data Analysis'],
+    links: [{ label: 'Interactive Dashboard', url: 'https://public.tableau.com/app/profile/lamberto.alberici/viz/USSenateElectionsAnalysis/FinalStory' }],
+    overview: 'Interactive Tableau dashboards analyzing U.S. Senate election data and demographic patterns across multiple election cycles, combining precinct-level voting data with county demographics.',
+    approach: [
+      'Integrated Senate precinct data with county-level demographic information',
+      'Built multi-year election result dashboards with dynamic filtering',
+      'Analyzed voting patterns across demographic groups and geographic regions'
+    ],
+    results: [
+      'County-level visualizations revealing voting patterns and demographic correlations',
+      'Multi-year trend analysis enabling comparison across regions and election cycles',
+      'Clean public-facing design suitable for political analysis and journalism'
+    ]
+  },
+  {
+    id: 'database',
+    title: 'Inventory Management Database System',
+    tags: ['PostgreSQL', 'SQL', 'Database Design', 'Schema Normalization'],
+    links: [{ label: 'GitHub', url: 'https://github.com/lamberto-alberici/inventory-management-database' }],
+    collaborators: '3 peers',
+    overview: 'PostgreSQL database for retail inventory management with normalized schema design (3NF), 8 interconnected tables, custom stored procedures, and a tiered loyalty rewards system.',
+    approach: [
+      'Schema normalized to Third Normal Form (3NF) to eliminate data redundancy',
+      '8 interconnected tables with foreign key relationships and referential integrity constraints',
+      '6+ custom SQL functions: reward tier calculation (Bronze/Silver/Gold/Platinum), order weight, product categorization',
+      'Views for efficient querying of customer activity and high-value orders'
+    ],
+    results: [
+      'Automated tiered rewards system based on customer point accumulation',
+      'Returns management system fully integrated with customer accounts and inventory',
+      'Robust validation through CHECK constraints, NOT NULL requirements, and UNIQUE constraints'
+    ]
+  },
+  {
+    id: 'prison',
+    title: 'Prison Escape Game',
+    tags: ['Rust', 'Raylib', 'Game Development', 'State Management'],
+    links: [{ label: 'GitHub', url: 'https://github.com/Lamberto-Alberici/prison-escape-game' }],
+    overview: 'Interactive prison escape game in Rust using the Raylib graphics library. Players navigate rooms, collect items, trade with NPCs, and plan their escape through a complete scene management system.',
+    approach: [
+      'Modular scene management system with state transitions between menu, game rooms, and win screens',
+      'Inventory system with pick-up, drop, and use mechanics',
+      'NPC trading system requiring item exchange to progress',
+      'Collision detection for interactive objects and player movement boundaries'
+    ],
+    results: [
+      'Seven collectible items with unique trading mechanics to unlock escape route',
+      'Scene stack architecture for smooth transitions across all screens',
+      'WASD/arrow key controls with real-time position updates'
+    ]
+  },
+  {
+    id: 'dodging',
+    title: 'Interactive Dodging Game',
+    tags: ['Java', 'OOP', 'Game Development', 'Event Handling'],
+    links: [{ label: 'GitHub', url: 'https://github.com/Lamberto-Alberici/arcane-dodging-game' }],
+    overview: 'Java minigame where players control an avatar by dragging with the mouse to dodge incoming bombs. Demonstrates OOP design, event handling, and real-time collision detection.',
+    approach: [
+      'OOP design with separate classes for game entities and state',
+      'Java event listeners for real-time mouse movement tracking',
+      'Collision detection algorithms and scoring system with difficulty progression'
+    ],
+    results: [
+      'Smooth mouse-drag controls with dynamic bomb spawning',
+      'Increasing difficulty over time with real-time collision detection',
+      'Clean UI with live score and game state display'
+    ]
+  }
+];
 
-// ─── Render Cards ───────────────────────────────────────────────────────────
-function createCard(project) {
-  const card = document.createElement('div');
-  card.className = 'project-card';
-  card.dataset.projectId = project.id;
-
-  const badgeHTML = project.badge
-    ? `<div class="card-badge">${project.badge}</div>`
-    : '';
-
-  const tagsHTML = project.tags
-    .map(t => `<span class="card-tag">${t}</span>`)
-    .join('');
-
-  card.innerHTML = `
-    ${badgeHTML}
-    <div class="card-top">
-      <h3 class="card-title">${project.title}</h3>
-      <span class="card-arrow">↗</span>
-    </div>
-    <div class="card-tags">${tagsHTML}</div>
-  `;
-
-  card.addEventListener('click', () => openModal(project));
-  return card;
-}
-
-function renderCards() {
-  const baCol = document.getElementById('baColumn');
-  const csCol = document.getElementById('csColumn');
-
-  projects.businessAnalytics.forEach(p => baCol.appendChild(createCard(p)));
-  projects.computerScience.forEach(p => csCol.appendChild(createCard(p)));
-}
-
-// ─── Modal ──────────────────────────────────────────────────────────────────
-const backdrop = document.getElementById('modalBackdrop');
-const modalBody = document.getElementById('modalBody');
-
+// ─── Build Modal Content ────────────────────────────────────────────────────
 function buildSection(title, items) {
   if (!items || items.length === 0) return '';
-  const isArray = Array.isArray(items);
-  const content = isArray
+  const isArr = Array.isArray(items);
+  const body = isArr
     ? `<ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`
     : `<p>${items}</p>`;
-  return `
-    <div class="modal-section">
-      <h4>${title}</h4>
-      ${content}
-    </div>
-  `;
+  return `<div class="modal-section"><h4>${title}</h4>${body}</div>`;
 }
 
 function openModal(project) {
-  const badgeHTML = project.badge
-    ? `<div class="modal-badge">${project.badge}</div>`
-    : '';
+  const badge = project.badge ? `<div class="modal-badge">${project.badge}</div>` : '';
+  const tags  = project.tags.map(t => `<span class="modal-tag">${t}</span>`).join('');
+  const links = (project.links || []).map(l =>
+    `<a href="${l.url}" target="_blank" class="modal-link">${l.label} ↗</a>`).join('');
+  const collab = project.collaborators
+    ? `<p class="modal-collaborators">In collaboration with ${project.collaborators}</p>` : '';
+  const impact = project.impact ? buildSection('Business Impact', project.impact) : '';
 
-  const tagsHTML = project.tags
-    .map(t => `<span class="modal-tag">${t}</span>`)
-    .join('');
-
-  const linksHTML = (project.links || [])
-    .map(l => `<a href="${l.url}" target="_blank" class="modal-link">${l.label} ↗</a>`)
-    .join('');
-
-  const collabHTML = project.collaborators
-    ? `<p class="modal-collaborators">In collaboration with ${project.collaborators}</p>`
-    : '';
-
-  const impactSection = project.impact
-    ? buildSection('Business Impact', project.impact)
-    : '';
-
-  modalBody.innerHTML = `
-    ${badgeHTML}
+  document.getElementById('modalBody').innerHTML = `
+    ${badge}
     <h2 class="modal-title">${project.title}</h2>
-    <div class="modal-tags">${tagsHTML}</div>
-    <div class="modal-links">${linksHTML}</div>
-    ${collabHTML}
+    <div class="modal-tags">${tags}</div>
+    <div class="modal-links">${links}</div>
+    ${collab}
     ${buildSection('Overview', project.overview)}
     ${buildSection('Approach', project.approach)}
     ${buildSection('Key Results', project.results)}
-    ${impactSection}
+    ${impact}
   `;
 
+  const backdrop = document.getElementById('modalBackdrop');
   backdrop.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
-  backdrop.classList.remove('active');
+  document.getElementById('modalBackdrop').classList.remove('active');
   document.body.style.overflow = '';
 }
 
-// Close on backdrop click (outside modal)
-backdrop.addEventListener('click', (e) => {
-  if (e.target === backdrop) closeModal();
-});
+// ─── Render ──────────────────────────────────────────────────────────────────
+function render() {
+  const featured = projects.find(p => p.featured);
+  const rest     = projects.filter(p => !p.featured);
 
-// Close on X button
+  // Featured card
+  if (featured) {
+    const tags = featured.tags.map(t => `<span class="card-tag">${t}</span>`).join('');
+    const el = document.createElement('div');
+    el.className = 'project-featured';
+    el.innerHTML = `
+      <div class="featured-left">
+        <div class="featured-badge">${featured.badge}</div>
+        <h2 class="featured-title">${featured.title}</h2>
+        <p class="featured-desc">${featured.desc}</p>
+        <div class="featured-tags">${tags}</div>
+      </div>
+      <div class="featured-right">
+        <span class="featured-cta">Explore project →</span>
+      </div>
+    `;
+    el.addEventListener('click', () => openModal(featured));
+    document.getElementById('featuredSlot').appendChild(el);
+  }
+
+  // Regular grid
+  const grid = document.getElementById('projectsGrid');
+  rest.forEach(project => {
+    const tags = project.tags.map(t => `<span class="card-tag">${t}</span>`).join('');
+    const card = document.createElement('div');
+    card.className = 'project-card';
+    card.innerHTML = `
+      <div class="card-top">
+        <h3 class="card-title">${project.title}</h3>
+        <span class="card-arrow">↗</span>
+      </div>
+      <div class="card-tags">${tags}</div>
+    `;
+    card.addEventListener('click', () => openModal(project));
+    grid.appendChild(card);
+  });
+}
+
+// ─── Event Listeners ────────────────────────────────────────────────────────
+document.getElementById('modalBackdrop').addEventListener('click', e => {
+  if (e.target === document.getElementById('modalBackdrop')) closeModal();
+});
 document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-// Close on Escape key
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeModal();
-});
-
-// ─── Init ───────────────────────────────────────────────────────────────────
-renderCards();
+render();
 </script>
 
 </body>
